@@ -18,8 +18,8 @@ function generateWinningNumber(){
 // Fetch the Players Guess
 
 function playersGuessSubmission(){
-	playersGuess = parseInt($("#guess").val());
-	$("#guess").attr("value", "");
+	playersGuess = parseInt($("input").val());
+	$("input").attr("value", "");
 	checkGuess();
 }
 
@@ -33,7 +33,8 @@ function lowerOrHigher(){
 
 function checkGuess(){
 	if (playersGuess === winningNumber){
-		$("body").append("<p>You won!</p>");
+		$("p").text("You won!");
+		gameOver();
 	}
 	else {
 		$("p").text(guessMessage());
@@ -42,7 +43,11 @@ function checkGuess(){
 }
 
 function guessMessage(){
-	if (guesses.indexOf(playersGuess) != -1){
+	if (guesses.length == 5){
+		gameOver();
+		return "You ran out of guesses!";
+	}
+	else if (guesses.indexOf(playersGuess) != -1){
 		return "You already guessed that! Try a new number.";
 	}
 	else if (lowerOrHigher()){
@@ -52,6 +57,12 @@ function guessMessage(){
 		return "Too high! Guess again.";
 	}
 
+}
+
+function gameOver(){
+	$("#submit").hide();
+	$("#hint").hide();
+	$("div").append("<button id='playagain'>Play again?</button>");
 }
 
 // Create a provide hint button that provides additional clues to the "Player"
@@ -66,7 +77,7 @@ function provideHint(){
 		numHints--;
 	}
 	shuffle(hints);
-	$("form").append("<p>The winning number is one of the following: " + hints + ".</p>");
+	$("p").text("The winning number is one of the following: " + hints + ".");
 }
 
 //Copied this from internet!
@@ -90,6 +101,8 @@ function shuffle(array) {
 }
 
 
+
+
 // Allow the "Player" to Play Again
 
 function playAgain(){
@@ -100,3 +113,8 @@ function playAgain(){
 /* **** Event Listeners/Handlers ****  */
 $("#submit").click(playersGuessSubmission);
 $("#hint").click(provideHint);
+$("input").keypress(function(event){
+	if (event.keyCode == 13){
+		playersGuessSubmission();
+	}
+});
