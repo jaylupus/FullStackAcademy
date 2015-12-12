@@ -19,7 +19,7 @@ function generateWinningNumber(){
 
 function playersGuessSubmission(){
 	playersGuess = parseInt($("input").val());
-	$("input").attr("value", "");
+	$("input").val("");
 	checkGuess();
 }
 
@@ -33,7 +33,7 @@ function lowerOrHigher(){
 
 function checkGuess(){
 	if (playersGuess === winningNumber){
-		$("p").text("You won!");
+		$("p").text(playersGuess + " is correct! You win!");
 		gameOver();
 	}
 	else {
@@ -48,13 +48,13 @@ function guessMessage(){
 		return "You ran out of guesses!";
 	}
 	else if (guesses.indexOf(playersGuess) != -1){
-		return "You already guessed that! Try a new number.";
+		return "You already guessed "+ playersGuess + "! Try a new number.";
 	}
 	else if (lowerOrHigher()){
-		return "Too low! Guess again.";
+		return playersGuess + " is too low! Guess again.";
 	}
 	else{
-		return "Too high! Guess again.";
+		return playersGuess + " is too high! Guess again.";
 	}
 
 }
@@ -62,7 +62,7 @@ function guessMessage(){
 function gameOver(){
 	$("#submit").hide();
 	$("#hint").hide();
-	$("div").append("<button id='playagain'>Play again?</button>");
+	$("form").append("<button id='playagain'>Play again?</button>");
 }
 
 // Create a provide hint button that provides additional clues to the "Player"
@@ -115,6 +115,7 @@ $("#submit").click(playersGuessSubmission);
 $("#hint").click(provideHint);
 $("input").keypress(function(event){
 	if (event.keyCode == 13){
+		event.preventDefault();
 		playersGuessSubmission();
 	}
 });
