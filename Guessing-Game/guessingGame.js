@@ -1,6 +1,7 @@
 /* **** Global Variables **** */
 // try to elminate these global variables in your project, these are here just to start.
 
+// how can you eliminate your globals? An easy and well known practice is to wrap this file in an IIFE, Immediately Invoked Function Expression
 var playersGuess;
 
 var winningNumber = generateWinningNumber();
@@ -24,6 +25,10 @@ function playersGuessSubmission(){
 }
 
 // Determine if the next guess should be a lower or higher number
+
+// NOTE: you are using "global variables" in this function.  It's a much better
+// practice to pass these values as parameters to your function and to not depend
+// on variable availability in the global name space.
 
 function lowerOrHigher(){
 	return (playersGuess < winningNumber);
@@ -81,6 +86,8 @@ function provideHint(){
 }
 
 //Copied this from internet!
+// do you understand how this works?
+// nifty function regardless!
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
 
@@ -104,7 +111,9 @@ function shuffle(array) {
 
 
 // Allow the "Player" to Play Again
-
+// How is this function coming along? Do you have any questions?
+// one simple way of creating this function is to reload the page.
+// look into window.reload or location.reload
 function playAgain(){
 	// add code here
 }
