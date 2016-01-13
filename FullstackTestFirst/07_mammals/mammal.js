@@ -1,7 +1,6 @@
 function Mammal(){
 	this.name = arguments[0];
 	this.offspring = [];
-
 }
 
 Mammal.prototype.sayHello = function(){
